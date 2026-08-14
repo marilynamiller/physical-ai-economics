@@ -9,26 +9,33 @@
 
 # --- Assumptions (illustrative placeholders, not sourced estimates) ---
 ROBOT_COST_ASSUMPTIONS = {
-    "upfront_equipment_cost": 150_000,          # robot/equipment acquisition, $
-    "deployment_integration_cost": 25_000,      # install/integration, $
+    "upfront_equipment_cost": 150_000,          # robot/equipment acquisition, $ per unit
+    "deployment_integration_cost": 25_000,      # install/integration, $ per unit
     "useful_life_years": 5,                     # years, for annualizing capex only
-    "annual_maintenance_cost": 12_000,          # $/year
-    "annual_software_cloud_cost": 6_000,        # $/year (licenses, cloud, subscriptions)
-    "annual_energy_cost": 3_000,                # $/year
-    "annual_insurance_support_cost": 4_000,     # $/year (insurance, support contracts, etc.)
+    "annual_maintenance_cost": 12_000,          # $/year per unit
+    "annual_software_cloud_cost": 6_000,        # $/year per unit (licenses, cloud, subscriptions)
+    "annual_energy_cost": 3_000,                # $/year per unit
+    "annual_insurance_support_cost": 4_000,     # $/year per unit (insurance, support contracts, etc.)
+    # USER-SPECIFIED illustrative input. NOT derived from workload,
+    # capacity, or labor displacement. All per-unit cost lines above
+    # are scaled uniformly by this fleet size (v1 simplification --
+    # does not distinguish fixed/shared costs from per-unit costs).
+    "robot_fleet_size": 4,
 }
 
 
 def calculate_total_upfront_capex(assumptions):
-    """Total Year-0 capital outlay: equipment + deployment/integration.
+    """Total Year-0 capital outlay for the fleet: (equipment +
+    deployment/integration) x robot_fleet_size.
 
     Kept as its own figure (not spread over time) because the later
     NPV model must treat this as a single Year 0 cash outflow.
     """
-    return (
+    per_unit_capex = (
         assumptions["upfront_equipment_cost"]
         + assumptions["deployment_integration_cost"]
     )
+    return per_unit_capex * assumptions["robot_fleet_size"]
 
 
 def calculate_annualized_capital_cost(total_upfront_capex, useful_life_years):
@@ -48,13 +55,16 @@ def calculate_annualized_capital_cost(total_upfront_capex, useful_life_years):
 
 
 def calculate_annual_operating_cost(assumptions):
-    """Total annual operating cost: maintenance + software/cloud + energy + insurance/support."""
-    return (
+    """Total annual operating cost for the fleet: (maintenance +
+    software/cloud + energy + insurance/support) x robot_fleet_size.
+    """
+    per_unit_operating_cost = (
         assumptions["annual_maintenance_cost"]
         + assumptions["annual_software_cloud_cost"]
         + assumptions["annual_energy_cost"]
         + assumptions["annual_insurance_support_cost"]
     )
+    return per_unit_operating_cost * assumptions["robot_fleet_size"]
 
 
 def calculate_total_annual_robot_cost(annualized_capital_cost, annual_operating_cost):
@@ -68,36 +78,50 @@ def calculate_total_annual_robot_cost(annualized_capital_cost, annual_operating_
 
 
 def print_summary(
+    robot_fleet_size,
     total_upfront_capex,
     annualized_capital_cost,
     annual_operating_cost,
     total_annual_robot_cost,
 ):
     """Print a clean, dollar-formatted summary of the robot cost model."""
+    print(f"Robot fleet size (user-specified input): {robot_fleet_size}")
     print(f"Total upfront capital expenditure:      ${total_upfront_capex:,.2f}")
     print(f"Illustrative annualized capital-cost estimate: ${annualized_capital_cost:,.2f}")
     print(f"Total annual operating cost:             ${annual_operating_cost:,.2f}")
     print(f"Total annual robot cost (for comparison): ${total_annual_robot_cost:,.2f}")
 
 
-def main():
-    total_upfront_capex = calculate_total_upfront_capex(ROBOT_COST_ASSUMPTIONS)
-
+def calculate_totals(assumptions=ROBOT_COST_ASSUMPTIONS):
+    """Run the full calculation chain and return results as a dict,
+    so other modules (e.g. compare.py) can import these figures
+    directly instead of re-deriving them.
+    """
+    total_upfront_capex = calculate_total_upfront_capex(assumptions)
     annualized_capital_cost = calculate_annualized_capital_cost(
-        total_upfront_capex, ROBOT_COST_ASSUMPTIONS["useful_life_years"]
+        total_upfront_capex, assumptions["useful_life_years"]
     )
-
-    annual_operating_cost = calculate_annual_operating_cost(ROBOT_COST_ASSUMPTIONS)
-
+    annual_operating_cost = calculate_annual_operating_cost(assumptions)
     total_annual_robot_cost = calculate_total_annual_robot_cost(
         annualized_capital_cost, annual_operating_cost
     )
+    return {
+        "robot_fleet_size": assumptions["robot_fleet_size"],
+        "total_upfront_capex": total_upfront_capex,
+        "annualized_capital_cost": annualized_capital_cost,
+        "annual_operating_cost": annual_operating_cost,
+        "total_annual_robot_cost": total_annual_robot_cost,
+    }
 
+
+def main():
+    totals = calculate_totals()
     print_summary(
-        total_upfront_capex,
-        annualized_capital_cost,
-        annual_operating_cost,
-        total_annual_robot_cost,
+        totals["robot_fleet_size"],
+        totals["total_upfront_capex"],
+        totals["annualized_capital_cost"],
+        totals["annual_operating_cost"],
+        totals["total_annual_robot_cost"],
     )
 
 
