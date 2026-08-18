@@ -7,21 +7,7 @@
 # All figures in ROBOT_COST_ASSUMPTIONS are ILLUSTRATIVE PLACEHOLDERS
 # and must eventually be replaced with sourced estimates.
 
-# --- Assumptions (illustrative placeholders, not sourced estimates) ---
-ROBOT_COST_ASSUMPTIONS = {
-    "upfront_equipment_cost": 150_000,          # robot/equipment acquisition, $ per unit
-    "deployment_integration_cost": 25_000,      # install/integration, $ per unit
-    "useful_life_years": 5,                     # years, for annualizing capex only
-    "annual_maintenance_cost": 12_000,          # $/year per unit
-    "annual_software_cloud_cost": 6_000,        # $/year per unit (licenses, cloud, subscriptions)
-    "annual_energy_cost": 3_000,                # $/year per unit
-    "annual_insurance_support_cost": 4_000,     # $/year per unit (insurance, support contracts, etc.)
-    # USER-SPECIFIED illustrative input. NOT derived from workload,
-    # capacity, or labor displacement. All per-unit cost lines above
-    # are scaled uniformly by this fleet size (v1 simplification --
-    # does not distinguish fixed/shared costs from per-unit costs).
-    "robot_fleet_size": 4,
-}
+from assumptions import ROBOT_COST_ASSUMPTIONS
 
 
 def calculate_total_upfront_capex(assumptions):

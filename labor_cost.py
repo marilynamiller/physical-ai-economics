@@ -1,13 +1,13 @@
 # labor_cost.py
 
-# --- Assumptions ---
-workers_per_shift = 4
-shifts_per_day = 3
-hours_per_shift = 8
-operating_days_per_year = 365
-loaded_hourly_wage = 38.50
+from assumptions import LABOR_ASSUMPTIONS, STANDARD_ANNUAL_HOURS_PER_FTE
 
-STANDARD_ANNUAL_HOURS_PER_FTE = 2080
+# --- Assumptions (from assumptions.py) ---
+workers_per_shift = LABOR_ASSUMPTIONS["workers_per_shift"]
+shifts_per_day = LABOR_ASSUMPTIONS["shifts_per_day"]
+hours_per_shift = LABOR_ASSUMPTIONS["hours_per_shift"]
+operating_days_per_year = LABOR_ASSUMPTIONS["operating_days_per_year"]
+loaded_hourly_wage = LABOR_ASSUMPTIONS["loaded_hourly_wage"]
 
 
 # --- Calculation functions ---
