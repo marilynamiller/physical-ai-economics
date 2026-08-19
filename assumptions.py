@@ -41,3 +41,10 @@ ROBOT_COST_ASSUMPTIONS = {
     # does not distinguish fixed/shared costs from per-unit costs).
     "robot_fleet_size": 4,
 }
+
+# --- NPV assumptions (npv.py) ---
+NPV_ASSUMPTIONS = {
+    "discount_rate": 0.08,          # annual rate, illustrative placeholder (e.g. generic hurdle rate)
+    "analysis_horizon_years": 5,    # years projected; independent of useful_life_years above,
+                                     # defaulted to match it for v1
+}
