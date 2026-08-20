@@ -5,8 +5,17 @@ of a hypothetical autonomous robot fleet.
 
 ## Status
 
-Early project. Currently building the first version of the operating
-and financial model.
+v1 complete: labor cost, robot fleet cost, and a multi-year NPV
+comparison between the two scenarios, with cost assumptions sourced
+to public market data (see Scenario and Data Sources below).
+
+Known limitations: robot fleet size is a user-specified input, not
+derived from workload or capacity data, so the model does not
+establish that the robot fleet and labor operation perform
+equivalent work. Taxes, depreciation, financing, residual value, and
+inflation are not modeled. Two cost line items (software/cloud,
+bundled insurance/support) could not be independently sourced. No
+automated tests exist.
 
 ## Scenario
 
