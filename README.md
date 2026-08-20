@@ -1,7 +1,8 @@
 # Physical AI Economics
 
-A Python-based scenario model for evaluating the deployment economics
-of a hypothetical autonomous robot fleet.
+A Python-based scenario model comparing the deployment economics of
+a hypothetical autonomous robot fleet against continuing with manual
+human labor.
 
 ## Status
 
