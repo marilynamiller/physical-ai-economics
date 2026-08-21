@@ -23,6 +23,22 @@ value, and inflation are not modeled. Two cost line items
 (software/cloud, bundled insurance/support) could not be
 independently sourced. No automated tests exist.
 
+## Usage
+
+Requires Python 3, standard library only (no dependencies to install).
+
+Run the full multi-year NPV comparison:
+
+    python npv.py
+
+Each cost model can also be run on its own:
+
+    python labor_cost.py
+    python robot_cost.py
+
+All inputs live in `assumptions.py`; edit that file to change the
+scenario (e.g. `robot_fleet_size`, `loaded_hourly_wage`).
+
 ## Scenario
 
 The v1 assumptions in `assumptions.py` are sourced against a
@@ -44,7 +60,7 @@ market data as of August 2026; see Data Sources below.
 ## Data Sources
 
 - [Fully Burdened Labor Rate: Calculate Your True Labor Costs](https://smartbarrel.io/blog/fully-burdened-labor-rate/)
-- [Hand Laborers and Material Movers : Occupational Outlook Handbook (BLS)](https://www.bls.gov/ooh/transportation-and-material-moving/hand-laborers-and-material-movers.htm)
+- [Hand Laborers and Material Movers: Occupational Outlook Handbook (BLS)](https://www.bls.gov/ooh/transportation-and-material-moving/hand-laborers-and-material-movers.htm)
 - [How Much Does an AMR Cost in 2026? Price Guide (Mesh Automation)](https://meshautomationinc.com/amr-cost-2026/)
 - [Warehouse robot cost in 2026: AMR, AGV, and RaaS ranges (PickTheRobot)](https://picktherobot.com/blog/warehouse-robot-cost-2026)
 - [How Much Does It Cost to Automate a Warehouse? (Axelent)](https://www.axelent.com/us/safety-hub/automated-warehouse-solutions/how-much-does-it-cost-to-automate-a-warehouse)
