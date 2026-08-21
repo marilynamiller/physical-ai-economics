@@ -66,9 +66,17 @@ ROBOT_COST_ASSUMPTIONS = {
 
 # --- NPV assumptions (npv.py) ---
 NPV_ASSUMPTIONS = {
-    # Sourced: median US mature-company cost of capital, ~8.35%
-    # (Damodaran, 2025 data), rounded.
-    "discount_rate": 0.08,
+    # Sourced: Damodaran cost-of-capital-by-industry data (NYU Stern,
+    # January 2026 vintage), "Retail (Distributors)" industry, 7.22%.
+    # Chosen over a market-wide median because it better reflects the
+    # risk profile of a distribution/fulfillment-center operator
+    # specifically. Damodaran's industry classification has no
+    # category literally named "Warehousing" or "Logistics";
+    # "Retail (Distributors)" was judged the closest match for a
+    # 3PL/fulfillment-center operator, as distinct from "Trucking"
+    # (over-the-road freight carriers -- a different business from
+    # intra-facility transport).
+    "discount_rate": 0.0722,
     "analysis_horizon_years": 5,    # years projected; independent of useful_life_years above,
                                      # defaulted to match it for v1
 }

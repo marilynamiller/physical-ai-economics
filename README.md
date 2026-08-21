@@ -13,10 +13,15 @@ to public market data (see Scenario and Data Sources below).
 Known limitations: robot fleet size is a user-specified input, not
 derived from workload or capacity data, so the model does not
 establish that the robot fleet and labor operation perform
-equivalent work. Taxes, depreciation, financing, residual value, and
-inflation are not modeled. Two cost line items (software/cloud,
-bundled insurance/support) could not be independently sourced. No
-automated tests exist.
+equivalent work. The discount rate is sourced to Damodaran's
+"Retail (Distributors)" industry cost of capital (7.22%, January
+2026 data) as the closest available proxy for a 3PL/fulfillment-
+center operator; Damodaran's industry classification has no category
+literally named "Warehousing" or "Logistics", so this is a judgment
+call, not an exact match. Taxes, depreciation, financing, residual
+value, and inflation are not modeled. Two cost line items
+(software/cloud, bundled insurance/support) could not be
+independently sourced. No automated tests exist.
 
 ## Scenario
 
@@ -49,7 +54,7 @@ market data as of August 2026; see Data Sources below.
 - [Robotics-as-a-Service (RaaS) Business Models (TechTimes)](https://www.techtimes.com/articles/314939/20260304/robotics-service-raas-business-models-how-subscription-robotics-transforming-industries.htm)
 - [AGV & AMR Charging: Complete Guide to Warehouse Robot Chargers](https://www.stchargers.com/news/agv-amr-charging-complete-guide-to-warehouse-robot-chargers/)
 - [Insurance for Robotics (Branco Insurance Group)](https://brancoinsurancegroup.com/insurance-for-robotics/)
-- [Data Update 6 for 2025: The Hurdle Rate Question (Damodaran)](https://aswathdamodaran.blogspot.com/2025/02/data-update-6-for-2025-from-macro-to.html)
+- [Cost of Capital by Industry Sector (Damodaran, NYU Stern)](https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/wacc.html)
 
 Note: cost figures are directional estimates from vendor and industry
 publications, not audited or contractually binding quotes. Several
